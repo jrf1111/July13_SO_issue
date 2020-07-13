@@ -1,0 +1,167 @@
+---
+title: 'test'
+output:
+  html_document:
+    pandoc_args: "--dpi=200"
+    fig_height: 3
+    fig_width: 5
+    code_folding: show
+    df_print: kable
+    toc: true
+    toc_depth: 3
+    toc_float: true
+editor_options: 
+  chunk_output_type: console
+---
+
+
+Hi! Here are some words.
+
+
+# A heading  
+\
+\
+I usually run this chunk with the option `echo=FALSE` and use this chunk to display some standard info about the analysis, almost like a header at the top of the document.  Since I have this issue with `DT::datatable()` regardless of the chunk settings, I decided to leave the code visible in the markdown report.
+
+\
+
+As you can see, in this chunk, `DT::datatable()` renders just fine.  
+
+\
+
+
+
+```{r}
+
+
+df1 = data.frame(
+  df = 111,
+  "Date Submitted" = "1/1/1999",
+  "Date Required" = "1/1/2020",
+  Description = "words",
+  "Link to File/Folder" = "hre/here/there",
+  "Approx Time Needed?" = NA, 
+  Requestor = "Me"
+)
+
+
+
+DT::datatable(df1, 
+							extensions = "Buttons",
+							rownames = F, 
+							options = list(dom = 'B',
+														 scrollX = TRUE,
+														 buttons = list(list(extend = 'copy', 
+														 										title = NULL, 
+														 										header = FALSE))) )
+
+
+
+
+```
+
+\
+\
+\
+\
+
+
+
+# My usual setup
+
+I use this section to load some packages, source some custom scripts, and to import and clean the data, etc.
+
+```{r}
+rm(list = ls())
+knitr::opts_chunk$set(echo = TRUE, results = "asis")
+suppressMessages(library(tidyverse))
+suppressMessages(library(tidylog))
+suppressMessages(library(data.table))
+suppressMessages(library(DT))
+
+
+df2 = data.frame(x = 1:5,
+								 y = 6:10
+								 )
+
+```
+
+
+
+
+
+\
+\
+\
+\
+
+# Calculations  
+
+This is were the fancy data wizardry usually happens.
+
+```{r}
+
+df2$z = df2$x + df2$y
+
+```
+
+
+
+\
+\
+\
+\
+
+
+# Results  
+
+\
+
+I (try to) report the results here.  For some reason though, `DT::datatable()` won't render the results anymore.
+
+
+```{r}
+
+
+
+
+
+DT::datatable(df2, 
+							extensions = "Buttons",
+							rownames = F, 
+							options = list(dom = 'B',
+														 scrollX = TRUE,
+														 buttons = list(list(extend = 'copy', 
+														 										title = NULL, 
+														 										header = FALSE))) )
+
+
+
+
+```
+
+
+\
+\
+
+It still won't render the results even if I use the default options:
+
+```{r}
+DT::datatable(df2)
+```
+
+
+\
+\
+\
+\
+
+
+
+# Session info
+
+```{r}
+
+pander::pander(sessionInfo())
+
+```
